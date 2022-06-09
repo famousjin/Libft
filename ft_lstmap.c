@@ -12,30 +12,23 @@
 
 #include "libft.h"
 
-void	ft_lstmap(t_list *lst, void (*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*new_head;
-	t_list	*new_next;
-	t_list	*curr;
+	t_list	*new_lst;
+	t_list	*tmp;
 
-	if (!lst || !f || !del)
-		return (NULL);
-	new_head = ft_lstnew(f(lst->content));
-	if (!new_head)
-		return (NULL);
-	curr = new_head;
-	lst = lst->next;
+	tmp = NULL;
 	while (lst)
 	{
-		new_next = ft_lstnew(f(lst->content));
-		if (!new_next)
+		new_lst = ft_lstnew(f(lst->content));
+		if (!new_lst)
 		{
-			ft_lstclear(&new_head, del);
-			return (NULL);
+			ft_lstclear(&tmp, del);
+			return ((void *)(0));
 		}
-		curr->next = new_next;
-		curr = new_next;
+		ft_lstadd_back(&tmp, new_lst);
 		lst = lst->next;
 	}
-	return (new_head);
+	new_lst = NULL;
+	return (tmp);
 }

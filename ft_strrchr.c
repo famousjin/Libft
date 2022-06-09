@@ -6,7 +6,7 @@
 /*   By: myyou <myyou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 16:13:56 by myyou             #+#    #+#             */
-/*   Updated: 2022/05/16 17:24:43 by myyou            ###   ########.fr       */
+/*   Updated: 2022/06/09 16:19:16 by myyou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,20 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	const char	*ptr;
+	size_t	i;
+	char	*last;
+	char	find;
 
-	ptr = NULL;
-	while (*s != (char)c)
+	last = (char *)s;
+	find = (char)c;
+	i = ft_strlen(s);
+	while (i > 0)
 	{
-		if (*s == c)
-			ptr = s;
-		s++;
+		if (last[i] == find)
+			return (last + i);
+		i--;
 	}
-	if (c == '\0')
-		return ((char *)s);
-	return ((char *)ptr);
+	if (last[i] == find)
+		return (last);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: myyou <myyou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 16:12:28 by myyou             #+#    #+#             */
-/*   Updated: 2022/06/09 14:35:08 by myyou            ###   ########.fr       */
+/*   Updated: 2022/06/09 16:18:38 by myyou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
 	unsigned char	*p1;
 	unsigned char	*p2;
-	size_t	i;
+	size_t			i;
 
 	p1 = (unsigned char *)s1;
 	p2 = (unsigned char *)s2;
@@ -25,8 +25,8 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	i = 0;
 	while (i < n)
 	{
-		if (a1[i] != a2[i])
-			return (a1[i] - a2[i]);
+		if (p1[i] != p2[i])
+			return (p1[i] - p2[i]);
 		i++;
 	}
 	return (0);

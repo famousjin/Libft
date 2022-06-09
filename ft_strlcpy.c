@@ -6,7 +6,7 @@
 /*   By: myyou <myyou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 16:13:19 by myyou             #+#    #+#             */
-/*   Updated: 2022/06/07 11:36:54 by myyou            ###   ########.fr       */
+/*   Updated: 2022/06/09 16:11:24 by myyou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,21 @@
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	size_t	src_len;
-	size_t	i;
+	unsigned int	i;
 
-	if (src == NULL)
-		return ((size_t) NULL);
 	i = 0;
-	src_len = 0;
-	while (src[src_len])
-		src_len++;
-	if (dstsize < 1)
-		return (src_len);
-	while (src[i] && i < dstsize - 1)
+	if (!dst || !src)
+		return (0);
+	if (dstsize > 0)
 	{
-		dst[i] = src[i];
-		i++;
+		while (--dstsize && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
 	}
-	dst[i] = '\0';
-	return (*dst);
+	while (src[i])
+		i++;
+	return (i);
 }
