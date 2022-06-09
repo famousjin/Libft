@@ -6,7 +6,7 @@
 /*   By: myyou <myyou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 16:11:39 by myyou             #+#    #+#             */
-/*   Updated: 2022/06/07 11:00:12 by myyou            ###   ########.fr       */
+/*   Updated: 2022/06/09 15:51:48 by myyou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,5 @@ int	ft_isalnum(int c)
 {
 	if (ft_isalpha(c) || ft_isdigit(c))
 		return (1);
-	else
-		return (0);
+	return (0);
 }

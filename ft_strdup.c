@@ -24,10 +24,10 @@ char	*ft_strdup(const char *src)
 	if (!pt)
 		return (NULL);
 	while (i < len)
-    {
+	{	
 		pt[i] = src[i];
-        i++;
-    }
+		i++;
+	}
 	pt[i] = '\0';
 	return (pt);
 }
