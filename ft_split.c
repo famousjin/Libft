@@ -12,79 +12,90 @@
 
 #include "libft.h"
 
-int	ft_num_word(const char *s, char c)
+static char            **ft_malloc_error(char **tab)
 {
-	int	i;
-	int	count;
+    unsigned int    i;
 
-	i = 0;
-	count = 0;
-	while (s[i])
-	{
-		while (s[i] == c)
-				i++;
-		if (s[i])
-		{
-			while (s[i] && s[i] != c)
-					i++;
-			count++;
-		}
-	}
-	return (count);
+    i = 0;
+    while (tab[i])
+    {
+        free(tab[i]);
+        i++;
+    }
+    free(tab);
+    return (NULL);
 }
 
-int	ft_word_len(char *s, char c, int i)
+static unsigned int    ft_get_nb_strs(char const *s, char c)
 {
-	int	a;
+    unsigned int    i;
+    unsigned int    nb_strs;
 
-	a = 0;
-	while (s[i] && s[i] != c)
-	{
-		i++;
-		a++;
-	}
-	return (a);
+    if (!s[0])
+        return (0);
+    i = 0;
+    nb_strs = 0;
+    while (s[i] && s[i] == c)
+        i++;
+    while (s[i])
+    {
+        if (s[i] == c)
+        {
+            nb_strs++;
+            while (s[i] && s[i] == c)
+                i++;
+            continue ;
+        }
+        i++;
+    }
+    if (s[i - 1] != c)
+        nb_strs++;
+    return (nb_strs);
 }
 
-char	**ft_split2(char **tab, char const *s, char c)
+static void            ft_get_next_str(char **next_str, unsigned int *next_str_len,
+                    char c)
 {
-	int	i;
-	int	vertical;
-	int	horizontal;
+    unsigned int i;
 
-	i = 0;
-	vertical = 0;
-	horizontal = 0;
-	while (s[i])
-	{
-		while (s[i] == c)
-				i++;
-		if (s[i])
-		{
-			tab[vertical] = (char *)malloc(sizeof(char) * ft_word_len(s, c, s + 1) + 1);
-			if (!tab[vertical])
-				return (NULL);
-			while (s[i] && s[i] != c)
-			{
-				tab[vertical][horizontal] = s[i];
-				i++;
-				horizontal++;
-			}
-			tab[vertical][horizontal] = '\0';
-			vertical++;
-		}
-	}
-	tab[vertical] = '\0';
-	return (tab);
+    *next_str += *next_str_len;
+    *next_str_len = 0;
+    i = 0;
+    while (**next_str && **next_str == c)
+        (*next_str)++;
+    while ((*next_str)[i])
+    {
+        if ((*next_str)[i] == c)
+            return ;
+        (*next_str_len)++;
+        i++;
+    }
 }
 
-char	**ft_split(char const *s, char c)
+char                **ft_split(char const *s, char c)
 {
-	char	**tab;
+    char            **tab;
+    char            *next_str;
+    unsigned int    next_str_len;
+    unsigned int    nb_strs;
+    unsigned int    i;
 
-	tab = (char **)malloc(sizeof(char *) * (ft_num_word(s, c) + 1));
-	if (!tab)
-		return (NULL);
-	ft_split2(tab, s, c);
-	return (tab);
+    if (!s)
+        return (NULL);
+    nb_strs = ft_get_nb_strs(s, c);
+    if (!(tab = (char **)malloc(sizeof(char *) * (nb_strs + 1))))
+        return (NULL);
+    i = 0;
+    next_str = (char *)s;
+    next_str_len = 0;
+    while (i < nb_strs)
+    {
+        ft_get_next_str(&next_str, &next_str_len, c);
+        if (!(tab[i] = (char *)malloc(sizeof(char) * (next_str_len + 1))))
+            return (ft_malloc_error(tab));
+        ft_strlcpy(tab[i], next_str, next_str_len + 1);
+        i++;
+    }
+    tab[i] = NULL;
+    return (tab);
 }

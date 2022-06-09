@@ -6,7 +6,7 @@
 /*   By: myyou <myyou@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 10:36:41 by myyou             #+#    #+#             */
-/*   Updated: 2022/06/07 12:43:13 by myyou            ###   ########.fr       */
+/*   Updated: 2022/06/08 18:27:28 by myyou            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_list	*ft_lstnew(void	*content)
 {
-	t_listi	*result;
+	t_list	*result;
 
 	result = (t_list *)malloc(sizeof(t_list));
 	if (!result)

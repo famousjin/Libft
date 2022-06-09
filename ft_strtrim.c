@@ -85,4 +85,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 	str[index] = '\0';
 	return (str);
 }
-}
